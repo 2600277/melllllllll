@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For You ♡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blush: #f8e8e8;
+      --rose: #c97b84;
+      --deep-rose: #9b4d57;
+      --cream: #fdf8f5;
+      --soft-gold: #d4a373;
+      --ink: #3d2c2e;
+      --petal: #e8a0a8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ---------- Shared ---------- */
+    .section {
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 2rem 1.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section.hidden-section {
+      display: none;
+    }
+
+    h1, h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .script {
+      font-family: 'Great Vibes', cursive;
+    }
+
+    .btn {
+      background: var(--deep-rose);
+      color: white;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.35s ease;
+      box-shadow: 0 8px 24px rgba(155, 77, 87, 0.25);
+      letter-spacing: 0.04em;
+      margin-top: 2rem;
+    }
+
+    .btn:hover {
+      background: var(--rose);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(155, 77, 87, 0.35);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    /* ---------- 1. ROSE INTRO ---------- */
+    #intro {
+      background: linear-gradient(165deg, #fdf6f4 0%, #f5e4e6 45%, #edd5d8 100%);
+      overflow: hidden;
+    }
+
+    .petal-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: radial-gradient(ellipse at 30% 30%, #f5c6cb, var(--petal));
+      border-radius: 50% 0 50% 50%;
+      opacity: 0.85;
+      animation: fall linear infinite;
+      box-shadow: 0 0 6px rgba(201, 123, 132, 0.3);
+    }
+
+    .petal::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      border-radius: inherit;
+      transform: rotate(45deg);
+      opacity: 0.7;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg) translateX(0);
+        opacity: 0;
+      }
+      10% { opacity: 0.9; }
+      90% { opacity: 0.7; }
+      100% {
+        transform: translateY(110vh) rotate(720deg) translateX(40px);
+        opacity: 0;
+      }
+    }
+
+    .intro-content {
+      text-align: center;
+      z-index: 2;
+      max-width: 560px;
+    }
+
+    .intro-content .script {
+      font-size: clamp(3.2rem, 10vw, 5.5rem);
+      color: var(--deep-rose);
+      margin-bottom: 0.4rem;
+      text-shadow: 0 2px 20px rgba(155, 77, 87, 0.15);
+    }
+
+    .intro-content p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      color: var(--ink);
+      opacity: 0.85;
+      margin-bottom: 0.5rem;
+    }
+
+    .intro-content .sub {
+      font-size: 1rem;
+      opacity: 0.65;
+      font-weight: 300;
+      margin-top: 1.5rem;
+    }
+
+    /* ---------- 2. BEARS ---------- */
+    #bear-section {
+      background: linear-gradient(180deg, #fdf8f5 0%, #f9ecec 100%);
+    }
+
+    .bear-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.8rem;
+    }
+
+    .bears-img {
+      width: min(320px, 85vw);
+      height: auto;
+      animation: float 3.8s ease-in-out infinite;
+      filter: drop-shadow(0 12px 24px rgba(61, 44, 46, 0.12));
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    .bear-message {
+      text-align: center;
+      max-width: 380px;
+    }
+
+    .bear-message h2 {
+      font-size: 1.9rem;
+      color: var(--deep-rose);
+      margin-bottom: 0.5rem;
+    }
+
+    .bear-message p {
+      font-size: 1.05rem;
+      opacity: 0.8;
+    }
+
+    /* ---------- 3. MEMORIES (pics only) ---------- */
+    #memories {
+      background: var(--cream);
+      justify-content: flex-start;
+      padding-top: 4rem;
+      padding-bottom: 5rem;
+    }
+
+    .memories-header {
+      text-align: center;
+      margin-bottom: 2.2rem;
+    }
+
+    .memories-header h2 {
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      color: var(--deep-rose);
+    }
+
+    .memories-header p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      opacity: 0.7;
+      margin-top: 0.35rem;
+    }
+
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.1rem;
+      max-width: 780px;
+      width: 100%;
+    }
+
+    .memory-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(61, 44, 46, 0.08);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      aspect-ratio: 1 / 1;
+    }
+
+    .memory-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 14px 32px rgba(61, 44, 46, 0.14);
+    }
+
+    .memory-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Placeholder style when no photo yet */
+    .memory-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, #f5e0e3, #edd0d5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      color: var(--deep-rose);
+      opacity: 0.75;
+    }
+
+    /* ---------- 4. LOVE LETTER ---------- */
+    #love-letter {
+      background: linear-gradient(165deg, #f9ecec 0%, #fdf8f5 100%);
+    }
+
+    .letter-box {
+      max-width: 620px;
+      background: white;
+      padding: 2.6rem 2.3rem;
+      border-radius: 6px;
+      box-shadow: 
+        0 1px 3px rgba(0,0,0,0.04),
+        0 20px 50px rgba(155, 77, 87, 0.1);
+      position: relative;
+    }
+
+    .letter-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--rose), var(--soft-gold), var(--rose));
+      border-radius: 6px 6px 0 0;
+    }
+
+    .letter-box h2 {
+      font-size: 2rem;
+      color: var(--deep-rose);
+      margin-bottom: 1.3rem;
+      text-align: center;
+    }
+
+    .letter-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.18rem;
+      line-height: 1.8;
+      color: var(--ink);
+    }
+
+    .letter-text p {
+      margin-bottom: 1.15rem;
+    }
+
+    .signature {
+      margin-top: 1.8rem;
+      text-align: right;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.9rem;
+      color: var(--deep-rose);
+    }
+
+    /* ---------- 5. PLAYLIST ---------- */
+    #playlist {
+      background: var(--cream);
+      padding-bottom: 4rem;
+    }
+
+    .playlist-header {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .playlist-header h2 {
+      font-size: clamp(1.9rem, 5vw, 2.6rem);
+      color: var(--deep-rose);
+    }
+
+    .playlist-header p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      opacity: 0.75;
+      margin-top: 0.3rem;
+    }
+
+    .spotify-embed {
+      width: 100%;
+      max-width: 480px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(61, 44, 46, 0.12);
+    }
+
+    .spotify-embed iframe {
+      width: 100%;
+      height: 380px;
+      border: none;
+      display: block;
+    }
+
+    .final-note {
+      margin-top: 2.5rem;
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      opacity: 0.7;
+      max-width: 400px;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 600px) {
+      .letter-box {
+        padding: 2rem 1.4rem;
+      }
+      .memory-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.9rem;
+      }
+      .bears-img {
+        width: min(280px, 80vw);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. ROSE INTRO -->
+  <section id="intro" class="section visible">
+    <div class="petal-container" id="petals"></div>
+    <div class="intro-content">
+      <div class="script">For You</div>
+      <p>Something soft, just like the way you make everything feel.</p>
+      <p class="sub">for my beautiful baby</p>
+      <button class="btn" onclick="showSection('bear-section')">Open</button>
+    </div>
+  </section>
+
+  <!-- 2. BEARS -->
+  <section id="bear-section" class="section hidden-section">
+    <div class="bear-wrapper">
+      <img src="c:\Users\PC\Downloads\bear-removebg-preview.png" alt="Cute bears hugging" class="bears-img">
+      <div class="bear-message">
+        <h2>I made this for you</h2>
+        <p>Here is something special just for you.</p>
+        <button class="btn" onclick="showSection('memories')">See our memories</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. MEMORIES (pics only) -->
+  <section id="memories" class="section hidden-section">
+    <div class="memories-header">
+      <h2>Our little collection</h2>
+      <p>Just us</p>
+    </div>
+    <div class="memory-grid">
+      <!-- Replace the placeholder divs with real photos like:
+           <div class="memory-card"><img src="your-photo-1.jpg" alt=""></div>
+      -->
+      <div class="memory-card">
+        <div class="memory-placeholder"><img src="c:\Users\PC\OneDrive\Desktop\mel\images\picture 1.jpeg" alt=""></div>
+      </div>
+      <div class="memory-card">
+        <div class="memory-placeholder"><img src="c:\Users\PC\OneDrive\Desktop\mel\images\image 2.jpeg" alt=""></div>
+      </div>
+      <div class="memory-card">
+        <div class="memory-placeholder"><img src="c:\Users\PC\OneDrive\Desktop\mel\images\image 3.jpeg" alt=""></div>
+      </div>
+      <div class="memory-card">
+        <div class="memory-placeholder"><img src="c:\Users\PC\OneDrive\Desktop\mel\images\image 4.jpeg" alt=""></div>
+      </div>
+      <div class="memory-card">
+        <div class="memory-placeholder"><img src="c:\Users\PC\OneDrive\Desktop\mel\images\image 5.jpeg" alt=""></div>
+      </div>
+      <div class="memory-card">
+        <div class="memory-placeholder"><img src="c:\Users\PC\OneDrive\Desktop\mel\images\image 6.jpeg" alt=""></div>
+      </div>
+      <div class="memory-card">
+        <div class="memory-placeholder"><img src="c:\Users\PC\OneDrive\Desktop\mel\images\image 7.jpeg" alt=""></div>
+      </div>
+      <div class="memory-card">
+        <div class="memory-placeholder"><img src="c:\Users\PC\OneDrive\Desktop\mel\images\image 8.jpeg" alt=""></div>
+      </div>
+    </div>
+    <button class="btn" onclick="showSection('love-letter')" style="margin-top: 2.6rem;">And why I love you</button>
+  </section>
+
+  <!-- 4. LOVE LETTER -->
+  <section id="love-letter" class="section hidden-section">
+    <div class="letter-box">
+      <h2>Why I love you</h2>
+      <div class="letter-text">
+        <p>I don’t even know how to explain how much I love you without it sounding like I’m just saying words, but I really do love you with everything in me.</p>
+        <p>It’s crazy to think that we met two years ago in November, because back then I never would’ve imagined you’d become such a huge part of my life and my heart. So much has happened between then and now, but somehow I still find myself loving you just as much, if not more.</p>
+        <p>You’ve seen different sides of me, even the parts I don’t always show people, and I’m grateful that you still chose to stay and love me. I know I’m not perfect and I know I don’t always say or do things the right way, but my love for you has always been real.</p>
+        <p>I care about you so much, and I honestly don’t want to imagine my life without you in it. I’m forever grateful for that day in November when we met, because it gave me the chance to know you, love you, and have someone as special as you in my life.</p>
+        <p>I love you more than I’ll ever be able to put into words, and I hope you always remember that.</p>
+      </div>
+      <div class="signature">Yours</div>
+    </div>
+    <button class="btn" onclick="showSection('playlist')">One more thing</button>
+  </section>
+
+  <!-- 5. PLAYLIST -->
+  <section id="playlist" class="section hidden-section">
+    <div class="playlist-header">
+      <h2>Songs that feel like us</h2>
+      <p>I made this playlist thinking of you</p>
+    </div>
+
+    <div class="spotify-embed">
+      <iframe 
+        src="https://open.spotify.com/embed/playlist/3ZqGt6e2MEnkzb47rKWb7S?utm_source=generator" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+        loading="lazy">
+      </iframe>
+    </div>
+
+    <p class="final-note">
+      Thank you for being you.<br>
+      I hope this made you smile, even just a little.
+    </p>
+  </section>
+
+  <script>
+    // Falling rose petals
+    const petalContainer = document.getElementById('petals');
+    const petalCount = 28;
+
+    for (let i = 0; i < petalCount; i++) {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDuration = (6 + Math.random() * 9) + 's';
+      petal.style.animationDelay = (Math.random() * 8) + 's';
+      petal.style.width = (12 + Math.random() * 14) + 'px';
+      petal.style.height = petal.style.width;
+      petal.style.opacity = 0.5 + Math.random() * 0.4;
+      petalContainer.appendChild(petal);
+    }
+
+    // Section transitions
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(sec => {
+        sec.classList.remove('visible');
+        sec.classList.add('hidden-section');
+      });
+
+      const target = document.getElementById(id);
+      target.classList.remove('hidden-section');
+      
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          target.classList.add('visible');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 40);
+      });
+    }
+  </script>
+</body>
+</html>
